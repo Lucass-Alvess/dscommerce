@@ -2,15 +2,9 @@ package com.lucasdev.dscommerce.controllers;
 
 
 import com.lucasdev.dscommerce.dto.OrderDTO;
-import com.lucasdev.dscommerce.dto.ProductDTO;
-import com.lucasdev.dscommerce.dto.ProductMinDTO;
-import com.lucasdev.dscommerce.entities.Order;
 import com.lucasdev.dscommerce.services.OrderService;
-import com.lucasdev.dscommerce.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
