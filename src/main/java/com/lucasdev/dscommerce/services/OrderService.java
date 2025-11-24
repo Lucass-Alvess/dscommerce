@@ -2,13 +2,11 @@ package com.lucasdev.dscommerce.services;
 
 import com.lucasdev.dscommerce.dto.OrderDTO;
 import com.lucasdev.dscommerce.dto.OrderItemDTO;
-import com.lucasdev.dscommerce.dto.ProductDTO;
 import com.lucasdev.dscommerce.entities.*;
 import com.lucasdev.dscommerce.repositories.OrderItemRepository;
 import com.lucasdev.dscommerce.repositories.OrderRepository;
 import com.lucasdev.dscommerce.repositories.ProductRepository;
 import com.lucasdev.dscommerce.services.exceptions.ResourceNotFoundException;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +28,14 @@ public class OrderService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthService authService;
+
     @Transactional(readOnly = true)
     public OrderDTO findById(Long id){
         Order order = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Recurso não encontrado"));
-
+        authService.validateSelfOrAdimin(order.getClient().getId());
         OrderDTO dto = new OrderDTO(order);
         return dto;
     }
@@ -51,7 +52,7 @@ public class OrderService {
         order.setClient(user);
 
         for (OrderItemDTO itemDto : dto.getItems()) {
-            Product product = productRepository.getReferenceById(itemDto.getProductId());   
+            Product product = productRepository.getReferenceById(itemDto.getProductId());
             OrderItem item = new OrderItem(order, product, itemDto.getQuantity(), product.getPrice());
             order.getItems().add(item);
         }
