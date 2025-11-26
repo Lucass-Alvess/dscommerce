@@ -1,6 +1,6 @@
 # 📦 DSCommerce
 
-API REST de um sistema de e-commerce, desenvolvido para estudo e prática de Java com Spring Boot, inspirado no curso **Java Spring** da DevSuperior.
+API REST de um sistema de e-commerce, desenvolvido para estudo e prática de Java com Spring Boot, no curso **Java Spring** da DevSuperior.
 
 ---
 
